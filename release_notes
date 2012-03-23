@@ -1,0 +1,10 @@
+RELEASE NOTES - EAN Hotels API Class
+
+
+V0.1 - 3/23/2012
+------
+- Initial commit. Class was stripped from a working project and refactored
+to make it slightly more manageable.
+- This code is ugly and will be optimized.
+- This code was also untested after it was stripped out. Testing and error
+fixes will be in 0.2
