@@ -1,0 +1,6 @@
+EAN Hotels API Class
+Language: PHP
+Author: Patrick Butkiewicz
+Version: 0.1
+
+This is a simple PHP class used to manage the API calls to the Expedia Network Hotel database. 
