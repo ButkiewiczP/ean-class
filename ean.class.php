@@ -1,4 +1,7 @@
 <?php
+
+	class EAN_API{
+
   /*
   EAN API Class
   Author: Patrick Butkiewicz (butkiewicz.p@gmail.com)
@@ -7,14 +10,11 @@
   Supports Version 3 of the EAN-Hotels API.
   */
 
-	class EAN_API{
-
 		// API Settings	
-		protected $cid = '55505';
-		protected $apiKey = 'YOUR_API_KEY';  
-		protected $secret = 'YOUR_EAN_SECRET';
+		protected $cid = '179382';
+		protected $apiKey = '8q4meddax9du8vg5kxntnwaj';  
+		protected $secret = 'e8veNQc2';
 		protected $currency = "USD";
-
 		protected $lastRequest = 0;
 		protected $DEFAULT_SHOW_RESULTS = '10';
 		
@@ -36,7 +36,6 @@
 		public function make_xml_request($service, $xml, $method = "get", $timestamp = ""){
 			
 			// re-case variables
-			$service = strtolower($service);
 			$method = strtolower($method);
 
 			// For catching the server-latency errors from expedia
@@ -44,7 +43,7 @@
 				$timestamp = gmdate('U');
 			
 			// Create signature
-			$sig = md5($apikey . $secret . $timestamp);
+			$sig = md5($this->apiKey . $this->secret . $timestamp);
 			
 			// Set post-data array
 			$postData = array(
@@ -70,7 +69,7 @@
 				
 				$url = substr($url, 0, -1);
 			}
-			
+						
 			// Expedia 1 Query-Per-Second Rule
 			$time = microtime();
 			$microSeconds = $time - $lastRequest;
@@ -252,8 +251,7 @@
 			$request .= '<type>' . $type . '</type>';
 		  $request .= '</LocationInfoRequest>';
 
-			
-			return $this->make_xml_request('geoSearch', $request);
+		  return $this->make_xml_request('geoSearch', $request);
 		}
 		
 /*************
@@ -282,7 +280,6 @@
 	
 		$destination = $infoArray['city'];
 		$destinationID = $infoArray['desID'];
-		$currency = $infoArray['USD'];
 		$language = $infoArray['locale'];
 		$check_in = $infoArray['checkIn'];
 		$check_out = $infoArray['checkOut'];
@@ -365,7 +362,7 @@
 
 		$xml .= "<arrivalDate>" . $check_in . "</arrivalDate>";
 		$xml .= "<departureDate>" . $check_out . "</departureDate>";
-		$xml .= "<numberOfResults>30</numberOfResults>";
+		$xml .= "<numberOfResults>" . $num_show_results . "</numberOfResults>";
 		$xml .= "<destinationId>" . $destination_id . "</destinationId>";
 		
 		if(!empty($infoArray['hotelName']))

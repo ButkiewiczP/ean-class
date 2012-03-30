@@ -4,3 +4,19 @@ Author: Patrick Butkiewicz
 Version: 0.1
 
 This is a simple PHP class used to manage the API calls to the Expedia Network Hotel database. 
+
+
+RELEASE NOTES
+
+V0.1 - 3/23/2012
+------
+- Initial commit. Class was stripped from a working project and refactored
+to make it slightly more manageable.
+- This code is ugly and will be optimized.
+- This code was also untested after it was stripped out. Testing and error
+fixes will be in 0.2
+
+V0.2 - 3/30/2012
+------
+- Added an example page with a simple example of retrieving hotels
+- Did basic class cleanup
