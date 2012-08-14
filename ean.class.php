@@ -11,13 +11,18 @@
   */
 
 		// API Settings	
-		protected $cid = '179382';
-		protected $apiKey = '8q4meddax9du8vg5kxntnwaj';  
-		protected $secret = 'e8veNQc2';
+		protected $cid = '55505';
+		protected $apiKey = 'YOUR_API_KEY_HERE';  
+		protected $secret = 'YOUR_SECRET_HERE';
 		protected $currency = "USD";
 		protected $lastRequest = 0;
 		protected $DEFAULT_SHOW_RESULTS = '10';
-		
+		protected $minorRev = '7';
+		protected $countryLocale = 'en_US';
+		protected $currencyCode = 'USD';
+		protected $dataType = 'xml';
+	
+		protected $api_connection_retries = 5;
 	
 		// CLASS CONSTRUCTOR
 		public function __construct(){
@@ -47,15 +52,15 @@
 			
 			// Set post-data array
 			$postData = array(
-				'minorRev' => '7',
+				'minorRev' => $this->minorRev,
 				'cid' => $this->cid,
 				'apiKey' => urlencode($this->apiKey),
 				'customerUserAgent' => urlencode($_SERVER['HTTP_USER_AGENT']),
 				'customerIpAddress' => urlencode($_SERVER['REMOTE_ADDR']),
-				'locale' => urlencode('en_US'),
+				'locale' => urlencode($this->countryLocale),
 				'currencyCode' => urlencode($this->currency),
 				'sig' => urlencode($sig),
-				'_type' => urlencode('xml'),
+				'_type' => urlencode($this->dataType),
 				'xml' => urlencode($xml)
 			);
 			
@@ -79,7 +84,7 @@
 		
 			// Begin executing CURL
 			$curl_attempts = 0;					// Curl request counter
-			$MAXIMUM_CURL_ATTEMPTS = 5;	// Max Curl attempts
+			$MAXIMUM_CURL_ATTEMPTS = $this->api_connection_retries;	// Max Curl attempts
 			do{
 				$curl = curl_init();
 				curl_setopt($curl,CURLOPT_FORBID_REUSE, 1);
@@ -150,14 +155,14 @@
 			
 			// Set post-data array
 			$postData = array(
-				'minorRev' => '7',
+				'minorRev' => $this->minorRev,
 				'cid' => $this->cid,
 				'apiKey' => urlencode($this->apiKey),
 				'customerUserAgent' => urlencode($_SERVER['HTTP_USER_AGENT']),
 				'customerIpAddress' => urlencode($_SERVER['REMOTE_ADDR']),
-				'locale' => urlencode('en_US'),
-				'currencyCode' => urlencode('USD'),
-				'_type' => urlencode('xml'),
+				'locale' => urlencode($this->countryLocale),
+				'currencyCode' => urlencode($this->currencyCode),
+				'_type' => urlencode($this->dataType),
 				'xml' => urlencode($xml)
 			);
 			
@@ -178,7 +183,7 @@
 
 			// Begin executing CURL
 			$curl_attempts = 0;
-			$MAXIMUM_CURL_ATTEMPTS = 5;
+			$MAXIMUM_CURL_ATTEMPTS = $this->api_connection_retries;
 			do{
 				$curl = curl_init();
 				curl_setopt($curl,CURLOPT_URL, $url);
